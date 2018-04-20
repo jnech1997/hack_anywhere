@@ -35,7 +35,8 @@ def mouseEvent(type, posx, posy):
 def mousemove(posx,posy):
         mouseEvent(kCGEventMouseMoved, posx,posy);
 def mouseclick(posx,posy):
-        #mouseEvent(kCGEventMouseMoved, posx,posy); #uncomment this line if you want to force the mouse to MOVE to the click location first (i found it was not necesary).
+        #uncomment the following line if you want to force the mouse to MOVE to the click location first (i found it was not necesary).
+        #mouseEvent(kCGEventMouseMoved, posx,posy); 
         mouseEvent(kCGEventLeftMouseDown, posx,posy);
         mouseEvent(kCGEventLeftMouseUp, posx,posy);
 time.sleep(delay);

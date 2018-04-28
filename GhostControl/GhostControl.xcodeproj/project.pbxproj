@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C3BF1942208B04B90068624E /* HelloWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3BF1942208B04B90068624E /* GhostControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BF1945208B04B90068624E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BF1947208B04B90068624E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C3BF1949208B04B90068624E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -36,7 +36,7 @@
 		C3BF1939208B04B90068624E = {
 			isa = PBXGroup;
 			children = (
-				C3BF1944208B04B90068624E /* HelloWorld */,
+				C3BF1944208B04B90068624E /* GhostControl */,
 				C3BF1943208B04B90068624E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -44,12 +44,12 @@
 		C3BF1943208B04B90068624E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C3BF1942208B04B90068624E /* HelloWorld.app */,
+				C3BF1942208B04B90068624E /* GhostControl.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C3BF1944208B04B90068624E /* HelloWorld */ = {
+		C3BF1944208B04B90068624E /* GhostControl */ = {
 			isa = PBXGroup;
 			children = (
 				C3BF1945208B04B90068624E /* AppDelegate.swift */,
@@ -58,15 +58,15 @@
 				C3BF194B208B04B90068624E /* Main.storyboard */,
 				C3BF194E208B04B90068624E /* Info.plist */,
 			);
-			path = HelloWorld;
+			path = GhostControl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C3BF1941208B04B90068624E /* HelloWorld */ = {
+		C3BF1941208B04B90068624E /* GhostControl */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C3BF1951208B04B90068624E /* Build configuration list for PBXNativeTarget "HelloWorld" */;
+			buildConfigurationList = C3BF1951208B04B90068624E /* Build configuration list for PBXNativeTarget "GhostControl" */;
 			buildPhases = (
 				C3BF193E208B04B90068624E /* Sources */,
 				C3BF193F208B04B90068624E /* Frameworks */,
@@ -76,9 +76,9 @@
 			);
 			dependencies = (
 			);
-			name = HelloWorld;
+			name = GhostControl;
 			productName = HelloWorld;
-			productReference = C3BF1942208B04B90068624E /* HelloWorld.app */;
+			productReference = C3BF1942208B04B90068624E /* GhostControl.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -89,7 +89,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = "Joseph Nechleba";
+				ORGANIZATIONNAME = hack_anywhere;
 				TargetAttributes = {
 					C3BF1941208B04B90068624E = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -97,7 +97,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C3BF193D208B04B90068624E /* Build configuration list for PBXProject "HelloWorld" */;
+			buildConfigurationList = C3BF193D208B04B90068624E /* Build configuration list for PBXProject "GhostControl" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -110,7 +110,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C3BF1941208B04B90068624E /* HelloWorld */,
+				C3BF1941208B04B90068624E /* GhostControl */,
 			);
 		};
 /* End PBXProject section */
@@ -248,9 +248,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = HelloWorld/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GhostControl/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jnechleba.HelloWorld;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnechleba.GhostControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -261,9 +261,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = HelloWorld/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/GhostControl/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.jnechleba.HelloWorld;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jnechleba.GhostControl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -272,7 +272,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C3BF193D208B04B90068624E /* Build configuration list for PBXProject "HelloWorld" */ = {
+		C3BF193D208B04B90068624E /* Build configuration list for PBXProject "GhostControl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C3BF194F208B04B90068624E /* Debug */,
@@ -281,13 +281,14 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C3BF1951208B04B90068624E /* Build configuration list for PBXNativeTarget "HelloWorld" */ = {
+		C3BF1951208B04B90068624E /* Build configuration list for PBXNativeTarget "GhostControl" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C3BF1952208B04B90068624E /* Debug */,
 				C3BF1953208B04B90068624E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

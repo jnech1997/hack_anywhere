@@ -38,6 +38,7 @@ class ViewController: NSViewController {
         var videoPreviewLayer: AVCaptureVideoPreviewLayer?
         capture_session = AVCaptureSession()
         let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        print(videoDevice)
         do {
             let input = try AVCaptureDeviceInput(device: videoDevice)
             capture_session?.addInput(input)

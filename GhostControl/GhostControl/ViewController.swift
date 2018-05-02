@@ -8,11 +8,40 @@
 
 import Cocoa
 import AVFoundation
+import Foundation
+
 
 class ViewController: NSViewController {
     @IBOutlet var previewView: NSView!
     @IBOutlet weak var direction_label: NSTextField!
     @IBOutlet weak var mouse_pos_field: NSTextField!
+    @IBAction func make_space(_ sender: Any) {
+        let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/make_space.scpt")
+        var possibleError: NSDictionary?
+        let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        a_script?.executeAndReturnError(&possibleError);
+        if let error = possibleError {
+            print("ERROR: \(error)")
+        }
+    }
+    @IBAction func move_left(_ sender: Any) {
+        let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_left.scpt")
+        var possibleError: NSDictionary?
+        let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        a_script?.executeAndReturnError(&possibleError);
+        if let error = possibleError {
+            print("ERROR: \(error)")
+        }
+    }
+    @IBAction func move_right(_ sender: Any) {
+        let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_right.scpt")
+        var possibleError: NSDictionary?
+        let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        a_script?.executeAndReturnError(&possibleError);
+        if let error = possibleError {
+            print("ERROR: \(error)")
+        }
+    }
     @IBAction func sayButtonClicked(_ sender: Any) {
         var x:Int? = 0
         var y:Int? = 0
@@ -33,7 +62,6 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         var capture_session: AVCaptureSession?
         var videoPreviewLayer: AVCaptureVideoPreviewLayer?
         capture_session = AVCaptureSession()

@@ -14,32 +14,42 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
     @IBOutlet weak var direction_label: NSTextField!
     @IBOutlet weak var mouse_pos_field: NSTextField!
     @IBAction func make_space(_ sender: Any) {
-        let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/make_space.scpt")
+        //let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/make_space.scpt")
         var possibleError: NSDictionary?
-        let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        //let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        let a_script = NSAppleScript.init(source:"do shell script \"open -a 'Mission Control'\"")
+        let a_script1 = NSAppleScript.init(source:"delay 0.5")
+        let a_script2 = NSAppleScript.init(source:"tell application \"System Events\" to click (every button whose value of attribute \"AXDescription\" is \"add desktop\") of group 2 of group 1 of group 1 of process \"Dock\"");
+        let a_script3 = NSAppleScript.init(source: "delay 0.5, tell application \"System Events\" to key code 53, \"return input\"");
         a_script?.executeAndReturnError(&possibleError);
+        a_script1?.executeAndReturnError(&possibleError);
+        a_script2?.executeAndReturnError(&possibleError);
+        a_script3?.executeAndReturnError(&possibleError);
         if let error = possibleError {
             print("ERROR: \(error)")
         }
     }
     @IBAction func move_left(_ sender: Any) {
-        let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_left.scpt")
+        //let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_left.scpt")
         var possibleError: NSDictionary?
-        let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        //let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 123 using control down")
         a_script?.executeAndReturnError(&possibleError);
         if let error = possibleError {
             print("ERROR: \(error)")
         }
     }
     @IBAction func move_right(_ sender: Any) {
-        let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_right.scpt")
+        //let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_right.scpt")
         var possibleError: NSDictionary?
-        let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 124 using control down")
+        //let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
         a_script?.executeAndReturnError(&possibleError);
         if let error = possibleError {
             print("ERROR: \(error)")
         }
     }
+    
     @IBAction func sayButtonClicked(_ sender: Any) {
         var x:Int? = 0
         var y:Int? = 0
@@ -62,6 +72,44 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
                     CGDisplayMoveCursorToPoint(CGMainDisplayID(), cg_point)
                 }
             }
+        }
+    }
+    
+    func make_space_face() {
+        //let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/make_space.scpt")
+        var possibleError: NSDictionary?
+        let a_script = NSAppleScript.init(source:"do shell script \"open -a 'Mission Control'\"")
+        let a_script1 = NSAppleScript.init(source:"delay 0.5")
+        let a_script2 = NSAppleScript.init(source:"tell application \"System Events\" to click (every button whose value of attribute \"AXDescription\" is \"add desktop\") of group 2 of group 1 of group 1 of process \"Dock\"");
+        let a_script3 = NSAppleScript.init(source: "delay 0.5, tell application \"System Events\" to key code 53, \"return input\"");
+        a_script?.executeAndReturnError(&possibleError);
+        a_script1?.executeAndReturnError(&possibleError);
+        a_script2?.executeAndReturnError(&possibleError);
+        a_script3?.executeAndReturnError(&possibleError);
+        if let error = possibleError {
+            print("ERROR: \(error)")
+        }
+    }
+    
+    func move_left_face() {
+        //let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_left.scpt")
+        var possibleError: NSDictionary?
+        let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 123 using control down")
+        //let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        a_script?.executeAndReturnError(&possibleError);
+        if let error = possibleError {
+            print("ERROR: \(error)")
+        }
+    }
+    
+    func move_right_face() {
+        //let url = URL.init(fileURLWithPath: "/Users/josephnechleba/Desktop/move_space_right.scpt")
+        var possibleError: NSDictionary?
+        let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 124 using control down")
+        //let a_script = NSAppleScript.init(contentsOf: url, error: &possibleError)
+        a_script?.executeAndReturnError(&possibleError);
+        if let error = possibleError {
+            print("ERROR: \(error)")
         }
     }
     
@@ -116,7 +164,18 @@ class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDele
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         let image = CIImage(cvImageBuffer: imageBuffer)
         let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
-        let faces = faceDetector?.features(in: image) as! [CIFaceFeature]
+        let faces = faceDetector?.features(in: image, options: [CIDetectorEyeBlink:true, CIDetectorSmile:true]) as! [CIFaceFeature]
+        for face in faces {
+            if (!face.leftEyeClosed && face.rightEyeClosed) {
+                move_left_face();
+            }
+            else if (face.leftEyeClosed && !face.rightEyeClosed) {
+                move_right_face();
+            }
+            else if (face.hasSmile) {
+                make_space_face();
+            }
+        }
         print("Number of faces: \(faces.count)");
     }
 

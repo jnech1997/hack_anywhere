@@ -1,17 +1,15 @@
 //
 //  ViewController.swift
-//  HelloWorld
+//  GhostControl
 //
-//  Created by Joseph Nechleba on 4/21/18.
-//  Copyright © 2018 Joseph Nechleba. All rights reserved.
-//
+//  Created by Will Estey and Joseph Nechleba on 4/21/18.
 
 import Cocoa
 import AVFoundation
 import Foundation
 
 
-class ViewController: NSViewController {
+class ViewController: NSViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     @IBOutlet var previewView: NSView!
     @IBOutlet weak var direction_label: NSTextField!
     @IBOutlet weak var mouse_pos_field: NSTextField!
@@ -51,33 +49,75 @@ class ViewController: NSViewController {
         }
         else {
             var coordinates = mouse_pos_string.characters.split{$0 == " "}.map(String.init)
-            x = Int(coordinates[0])
-            y = Int(coordinates[1])
-            print(x)
-            print(y)
-            let cg_point = CGPoint.init(x: x!, y: y!)
-            CGDisplayMoveCursorToPoint(CGMainDisplayID(), cg_point)
+            if (coordinates.count != 2) {
+                print("must enter two coordinates");
+            }
+            else {
+                x = Int(coordinates[0])
+                y = Int(coordinates[1])
+                print(x)
+                print(y)
+                if (x != nil && y != nil) {
+                    let cg_point = CGPoint.init(x: x!, y: y!)
+                    CGDisplayMoveCursorToPoint(CGMainDisplayID(), cg_point)
+                }
+            }
+        }
+    }
+    
+    func initCamera() {
+        var capture_session: AVCaptureSession?
+        var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+        capture_session = AVCaptureSession()
+        capture_session?.sessionPreset = AVCaptureSessionPresetLow
+        let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        print(videoDevice)
+        
+        do {
+            let input = try AVCaptureDeviceInput(device: videoDevice)
+            let output = AVCaptureVideoDataOutput()
+            output.alwaysDiscardsLateVideoFrames = true
+            output.videoSettings = [
+                kCVPixelBufferPixelFormatTypeKey as AnyHashable : Int(kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)
+            ]
+            capture_session?.addInput(input)
+            capture_session?.addOutput(output)
+            let captureSessionQueue = DispatchQueue(label: "GhostControlQueue", attributes: [])
+            output.setSampleBufferDelegate(self, queue: captureSessionQueue)
+            let videoConnection = output.connection(withMediaType: AVMediaTypeVideo)
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session:capture_session)
+            videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            videoPreviewLayer?.frame = (view.layer?.bounds)!
+            previewView.layer?.addSublayer(videoPreviewLayer!)
+            for connection in output.connections {
+                if let conn = connection as? AVCaptureConnection {
+                    if conn.isVideoOrientationSupported {
+                        print(conn.isVideoMinFrameDurationSupported);
+                        conn.videoMinFrameDuration = CMTime.init(seconds: 1, preferredTimescale: Int32.init(1))
+                        conn.videoOrientation = AVCaptureVideoOrientation.portrait
+                    }
+                }
+            }
+            capture_session?.commitConfiguration()
+            capture_session?.startRunning()
+            print(captureSessionQueue)
+        } catch {
+            return
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        var capture_session: AVCaptureSession?
-        var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-        capture_session = AVCaptureSession()
-        let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-        print(videoDevice)
-        do {
-            let input = try AVCaptureDeviceInput(device: videoDevice)
-            capture_session?.addInput(input)
-            videoPreviewLayer = AVCaptureVideoPreviewLayer(session:capture_session)
-            videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-            videoPreviewLayer?.frame = (view.layer?.bounds)!
-            previewView.layer?.addSublayer(videoPreviewLayer!)
-            capture_session?.startRunning()
-        } catch {
-            return
-        }
+        initCamera()
+    }
+
+    func captureOutput(_ output: AVCaptureOutput, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        //print(sampleBuffer);
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        let image = CIImage(cvImageBuffer: imageBuffer)
+        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
+        let faces = faceDetector?.features(in: image) as! [CIFaceFeature]
+        print("Number of faces: \(faces.count)");
     }
 
     override var representedObject: Any? {

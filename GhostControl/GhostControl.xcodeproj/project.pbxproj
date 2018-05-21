@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C368285A20B270A800F8D200 /* wallpaper-2659885_640.png in Resources */ = {isa = PBXBuildFile; fileRef = C368285220B270A700F8D200 /* wallpaper-2659885_640.png */; };
+		C368285B20B270A800F8D200 /* Webp.net-resizeimage (1).png in Resources */ = {isa = PBXBuildFile; fileRef = C368285320B270A700F8D200 /* Webp.net-resizeimage (1).png */; };
+		C368285C20B270A800F8D200 /* Webp.net-resizeimage (3).png in Resources */ = {isa = PBXBuildFile; fileRef = C368285420B270A700F8D200 /* Webp.net-resizeimage (3).png */; };
+		C368285D20B270A800F8D200 /* Webp.net-resizeimage (4).png in Resources */ = {isa = PBXBuildFile; fileRef = C368285520B270A700F8D200 /* Webp.net-resizeimage (4).png */; };
+		C368285E20B270A800F8D200 /* wallpaper-2659885_640 11.09.38 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = C368285620B270A700F8D200 /* wallpaper-2659885_640 11.09.38 PM.png */; };
+		C368285F20B270A800F8D200 /* wallpaper-2659885_640 22-23-35-126.png in Resources */ = {isa = PBXBuildFile; fileRef = C368285720B270A700F8D200 /* wallpaper-2659885_640 22-23-35-126.png */; };
+		C368286020B270A800F8D200 /* Webp.net-resizeimage (2).png in Resources */ = {isa = PBXBuildFile; fileRef = C368285820B270A800F8D200 /* Webp.net-resizeimage (2).png */; };
+		C368286120B270A800F8D200 /* Webp.net-resizeimage.png in Resources */ = {isa = PBXBuildFile; fileRef = C368285920B270A800F8D200 /* Webp.net-resizeimage.png */; };
 		C3BF1946208B04B90068624E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF1945208B04B90068624E /* AppDelegate.swift */; };
 		C3BF1948208B04B90068624E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BF1947208B04B90068624E /* ViewController.swift */; };
 		C3BF194A208B04B90068624E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3BF1949208B04B90068624E /* Assets.xcassets */; };
@@ -14,6 +22,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C368285220B270A700F8D200 /* wallpaper-2659885_640.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallpaper-2659885_640.png"; sourceTree = "<group>"; };
+		C368285320B270A700F8D200 /* Webp.net-resizeimage (1).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Webp.net-resizeimage (1).png"; sourceTree = "<group>"; };
+		C368285420B270A700F8D200 /* Webp.net-resizeimage (3).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Webp.net-resizeimage (3).png"; sourceTree = "<group>"; };
+		C368285520B270A700F8D200 /* Webp.net-resizeimage (4).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Webp.net-resizeimage (4).png"; sourceTree = "<group>"; };
+		C368285620B270A700F8D200 /* wallpaper-2659885_640 11.09.38 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallpaper-2659885_640 11.09.38 PM.png"; sourceTree = "<group>"; };
+		C368285720B270A700F8D200 /* wallpaper-2659885_640 22-23-35-126.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wallpaper-2659885_640 22-23-35-126.png"; sourceTree = "<group>"; };
+		C368285820B270A800F8D200 /* Webp.net-resizeimage (2).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Webp.net-resizeimage (2).png"; sourceTree = "<group>"; };
+		C368285920B270A800F8D200 /* Webp.net-resizeimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Webp.net-resizeimage.png"; sourceTree = "<group>"; };
 		C3BF1942208B04B90068624E /* GhostControl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostControl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BF1945208B04B90068624E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3BF1947208B04B90068624E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +71,14 @@
 				C3BF1945208B04B90068624E /* AppDelegate.swift */,
 				C3BF1947208B04B90068624E /* ViewController.swift */,
 				C3BF1949208B04B90068624E /* Assets.xcassets */,
+				C368285620B270A700F8D200 /* wallpaper-2659885_640 11.09.38 PM.png */,
+				C368285720B270A700F8D200 /* wallpaper-2659885_640 22-23-35-126.png */,
+				C368285220B270A700F8D200 /* wallpaper-2659885_640.png */,
+				C368285320B270A700F8D200 /* Webp.net-resizeimage (1).png */,
+				C368285820B270A800F8D200 /* Webp.net-resizeimage (2).png */,
+				C368285420B270A700F8D200 /* Webp.net-resizeimage (3).png */,
+				C368285520B270A700F8D200 /* Webp.net-resizeimage (4).png */,
+				C368285920B270A800F8D200 /* Webp.net-resizeimage.png */,
 				C3BF194B208B04B90068624E /* Main.storyboard */,
 				C3BF194E208B04B90068624E /* Info.plist */,
 			);
@@ -120,8 +144,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C368285E20B270A800F8D200 /* wallpaper-2659885_640 11.09.38 PM.png in Resources */,
+				C368285C20B270A800F8D200 /* Webp.net-resizeimage (3).png in Resources */,
 				C3BF194A208B04B90068624E /* Assets.xcassets in Resources */,
+				C368286020B270A800F8D200 /* Webp.net-resizeimage (2).png in Resources */,
+				C368285A20B270A800F8D200 /* wallpaper-2659885_640.png in Resources */,
+				C368285D20B270A800F8D200 /* Webp.net-resizeimage (4).png in Resources */,
 				C3BF194D208B04B90068624E /* Main.storyboard in Resources */,
+				C368285F20B270A800F8D200 /* wallpaper-2659885_640 22-23-35-126.png in Resources */,
+				C368286120B270A800F8D200 /* Webp.net-resizeimage.png in Resources */,
+				C368285B20B270A800F8D200 /* Webp.net-resizeimage (1).png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

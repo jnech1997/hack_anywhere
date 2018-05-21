@@ -10,6 +10,8 @@ import Foundation
 
 
 class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
+    var num_blink_right = 0;
+    var num_blink_left = 0;
     @IBOutlet var previewView: NSView!
     @IBOutlet weak var direction_label: NSTextField!
     @IBOutlet weak var mouse_pos_field: NSTextField!
@@ -95,16 +97,16 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
         a_script2?.executeAndReturnError(&possibleError2);
         a_script3?.executeAndReturnError(&possibleError3);
         if let error = possibleError {
-            //print("ERROR: \(error)")
+            print("ERROR: \(error)")
         }
         else if  let error = possibleError1 {
-            //print("ERROR: \(error)")
+            print("ERROR: \(error)")
         }
         else if let error = possibleError2 {
-            //print("ERROR: \(error)")
+            print("ERROR: \(error)")
         }
         else if let error = possibleError3 {
-            //print("ERROR: \(error)")
+            print("ERROR: \(error)")
         }
     }
     
@@ -113,7 +115,7 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
         let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 123 using control down")
         a_script?.executeAndReturnError(&possibleError);
         if let error = possibleError {
-            //print("ERROR: \(error)")
+            print("ERROR: \(error)")
         }
     }
     
@@ -122,8 +124,19 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
         let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 124 using control down")
         a_script?.executeAndReturnError(&possibleError);
         if let error = possibleError {
-            //print("ERROR: \(error)")
+            print("ERROR: \(error)")
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
+        initCamera()
+        let speecher:NSSpeechRecognizer = NSSpeechRecognizer.init()!;
+        speecher.commands = ["move desktop right", "move desktop left", "make new desktop space", "mouse right", "mouse left", "mouse up", "mouse down"];
+        speecher.delegate = self;
+        speecher.listensInForegroundOnly = false;
+        speecher.startListening();
     }
     
     func initCamera() {
@@ -132,7 +145,7 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
         capture_session = AVCaptureSession()
         capture_session?.sessionPreset = AVCaptureSessionPresetLow
         let videoDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-        //print(videoDevice)
+        print(videoDevice)
         
         do {
             let input = try AVCaptureDeviceInput(device: videoDevice)
@@ -154,7 +167,7 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
                 if let conn = connection as? AVCaptureConnection {
                     if conn.isVideoOrientationSupported {
                         //print(conn.isVideoMinFrameDurationSupported);
-                        conn.videoMinFrameDuration = CMTimeMake(1, 10)
+                        conn.videoMinFrameDuration = CMTimeMake(1, 2)
                         conn.videoOrientation = AVCaptureVideoOrientation.portrait
                     }
                 }
@@ -166,19 +179,8 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
             return
         }
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //initCamera()
-        let speecher:NSSpeechRecognizer = NSSpeechRecognizer.init()!;
-        speecher.commands = ["move desktop right", "move desktop left", "make new desktop space"];
-        speecher.delegate = self;
-        speecher.listensInForegroundOnly = false;
-        speecher.startListening()
-    }
     
     func speechRecognizer(_ sender: NSSpeechRecognizer, didRecognizeCommand command:AnyObject?) {
-        //print(command!);
         if (command as! String == "make new desktop space") {
             make_space_face();
         }
@@ -188,22 +190,52 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
         else if (command as! String == "move desktop right") {
             move_right_face();
         }
+        else if (command as! String == "mouse right") {
+                var mouseLoc = NSEvent.mouseLocation()
+                mouseLoc.y = NSHeight(NSScreen.screens()![0].frame) - mouseLoc.y;
+                var cg_point = CGPoint.init(x: mouseLoc.x + 100, y: mouseLoc.y);
+                CGDisplayMoveCursorToPoint(0, cg_point);
+        }
+        else if (command as! String == "mouse left") {
+            var mouseLoc = NSEvent.mouseLocation()
+            mouseLoc.y = NSHeight(NSScreen.screens()![0].frame) - mouseLoc.y;
+            var cg_point = CGPoint.init(x: mouseLoc.x - 100, y: mouseLoc.y);
+            CGDisplayMoveCursorToPoint(0, cg_point);
+        }
+        else if (command as! String == "mouse up") {
+            var mouseLoc = NSEvent.mouseLocation()
+            mouseLoc.y = NSHeight(NSScreen.screens()![0].frame) - mouseLoc.y;
+            var cg_point = CGPoint.init(x: mouseLoc.x, y: mouseLoc.y - 100);
+            CGDisplayMoveCursorToPoint(0, cg_point);
+        }
+        else if (command as! String == "mouse down") {
+            var mouseLoc = NSEvent.mouseLocation()
+            mouseLoc.y = NSHeight(NSScreen.screens()![0].frame) - mouseLoc.y;
+            var cg_point = CGPoint.init(x: mouseLoc.x, y: mouseLoc.y + 100);
+            CGDisplayMoveCursorToPoint(0, cg_point);
+        }
     }
+    
+    let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
 
     func captureOutput(_ output: AVCaptureOutput, didOutputSampleBuffer sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         let image = CIImage(cvImageBuffer: imageBuffer)
-        let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
         let faces = faceDetector?.features(in: image, options: [CIDetectorEyeBlink:true, CIDetectorSmile:true]) as! [CIFaceFeature]
         for face in faces {
             if (!face.leftEyeClosed && face.rightEyeClosed) {
-                move_left_face();
+                num_blink_left = num_blink_left + 1;
+                if (num_blink_left == 10) {
+                    move_left_face();
+                    num_blink_left = 0;
+                }
             }
             else if (face.leftEyeClosed && !face.rightEyeClosed) {
-                move_right_face();
-            }
-            else if (face.hasSmile) {
-                make_space_face();
+                num_blink_right = num_blink_right + 1;
+                if (num_blink_right == 10) {
+                    move_right_face();
+                    num_blink_right = 0;
+                }
             }
         }
     }

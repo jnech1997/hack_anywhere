@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleSignature</key>
-	<string></string>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string></string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>For Speech Recognition</string>
 	<key>LSApplicationCategoryType</key>

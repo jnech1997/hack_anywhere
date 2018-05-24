@@ -198,7 +198,6 @@ SWIFT_CLASS("_TtC12GhostControl11AppDelegate")
 @class CIDetector;
 @class AVCaptureOutput;
 @class AVCaptureConnection;
-@class NSApplication;
 @class NSBundle;
 @class NSCoder;
 
@@ -210,13 +209,11 @@ SWIFT_CLASS("_TtC12GhostControl14ViewController")
 - (void)make_space;
 - (void)move_left;
 - (void)move_right;
-@property (nonatomic, readonly, strong) NSSpeechRecognizer * _Nonnull speecher;
 - (void)viewDidLoad;
 - (void)initCamera SWIFT_METHOD_FAMILY(none);
 - (void)speechRecognizer:(NSSpeechRecognizer * _Nonnull)sender didRecognizeCommand:(NSString * _Nonnull)command;
 @property (nonatomic, readonly, strong) CIDetector * _Nullable faceDetector;
 - (void)captureOutput:(AVCaptureOutput * _Nonnull)output didOutputSampleBuffer:(CMSampleBufferRef _Nonnull)sampleBuffer fromConnection:(AVCaptureConnection * _Nonnull)connection;
-- (void)applicationWillTerminate:(NSApplication * _Nonnull)application;
 @property (nonatomic) id _Nullable representedObject;
 - (nullable instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;

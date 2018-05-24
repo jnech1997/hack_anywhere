@@ -48,8 +48,6 @@
 	<string></string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.13</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string></string>
 	<key>NSCameraUsageDescription</key>
 	<string>For Gesture Control</string>
 	<key>NSHumanReadableCopyright</key>

@@ -8,7 +8,6 @@ import Cocoa
 import AVFoundation
 import Foundation
 
-
 class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     var num_blink_right = 0;
     var num_blink_left = 0;
@@ -19,13 +18,16 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
         var possibleError1: NSDictionary?
         var possibleError2: NSDictionary?
         var possibleError3: NSDictionary?
+        var possibleError4: NSDictionary?
         let a_script = NSAppleScript.init(source:"do shell script \"open -a 'Mission Control'\"")
         let a_script1 = NSAppleScript.init(source:"delay 0.5")
         let a_script2 = NSAppleScript.init(source:"tell application \"System Events\" to click (every button whose value of attribute \"AXDescription\" is \"add desktop\") of group 2 of group 1 of group 1 of process \"Dock\"");
+        let a_script4 = NSAppleScript.init(source:"delay 0.5")
         let a_script3 = NSAppleScript.init(source: "tell application \"System Events\" to key code 53");
         a_script?.executeAndReturnError(&possibleError);
         a_script1?.executeAndReturnError(&possibleError1);
         a_script2?.executeAndReturnError(&possibleError2);
+        a_script4?.executeAndReturnError(&possibleError4);
         a_script3?.executeAndReturnError(&possibleError3);
         if let error = possibleError {
             print("ERROR: \(error)")
@@ -39,37 +41,32 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
         else if let error = possibleError3 {
             print("ERROR: \(error)")
         }
+        else if let error = possibleError4 {
+            print("ERROR: \(error)")
+        }
     }
     
     func move_left() {
         var possibleError: NSDictionary?
         let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 123 using control down")
         a_script?.executeAndReturnError(&possibleError);
-        if let error = possibleError {
-            print("ERROR: \(error)")
-        }
     }
     
     func move_right() {
         var possibleError: NSDictionary?
         let a_script = NSAppleScript.init(source: "tell application \"System Events\" to key code 124 using control down")
         a_script?.executeAndReturnError(&possibleError);
-        if let error = possibleError {
-            print("ERROR: \(error)")
-        }
     }
-    
-    let speecher:NSSpeechRecognizer = NSSpeechRecognizer.init()!;
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.window?.level = Int(CGWindowLevelForKey(.floatingWindow))
-        let speecher:NSSpeechRecognizer = NSSpeechRecognizer.init()!;
-        speecher.commands = ["move desktop right", "move desktop left", "make new desktop space", "mouse right", "mouse left", "mouse up", "mouse down"];
-        speecher.delegate = self;
-        speecher.listensInForegroundOnly = false;
-        speecher.startListening();
-        initCamera()
+        view.window?.level = Int(CGWindowLevelForKey(.floatingWindow));
+        let speecher = NSSpeechRecognizer.init();
+        speecher?.commands = ["move desktop right", "move desktop left", "make new desktop space", "mouse up", "mouse down", "mouse left", "mouse right"];
+        speecher?.delegate = self;
+        speecher?.listensInForegroundOnly = false;
+        speecher?.startListening();
+        initCamera();
     }
     
     func initCamera() {
@@ -121,10 +118,10 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
             move_right();
         }
         else if (command == "mouse right") {
-                var mouseLoc = NSEvent.mouseLocation()
-                mouseLoc.y = NSHeight(NSScreen.screens()![0].frame) - mouseLoc.y;
-                var cg_point = CGPoint.init(x: mouseLoc.x + 100, y: mouseLoc.y);
-                CGDisplayMoveCursorToPoint(0, cg_point);
+            var mouseLoc = NSEvent.mouseLocation()
+            mouseLoc.y = NSHeight(NSScreen.screens()![0].frame) - mouseLoc.y;
+            var cg_point = CGPoint.init(x: mouseLoc.x + 100, y: mouseLoc.y);
+            CGDisplayMoveCursorToPoint(0, cg_point);
         }
         else if (command == "mouse left") {
             var mouseLoc = NSEvent.mouseLocation()
@@ -143,10 +140,6 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
             mouseLoc.y = NSHeight(NSScreen.screens()![0].frame) - mouseLoc.y;
             var cg_point = CGPoint.init(x: mouseLoc.x, y: mouseLoc.y + 100);
             CGDisplayMoveCursorToPoint(0, cg_point);
-        }
-        else {
-            speecher.stopListening();
-            speecher.startListening();
         }
     }
     
@@ -172,10 +165,6 @@ class ViewController: NSViewController, NSSpeechRecognizerDelegate, AVCaptureVid
                 }
             }
         }
-    }
-    
-    func applicationWillTerminate(_ application: NSApplication) {
-        speecher.stopListening();
     }
 
     override var representedObject: Any? {

@@ -1,6 +1,6 @@
 version: "Apple Swift version 4.1 (swiftlang-902.0.48 clang-902.0.37.1)"
 options: "35e1c27511b551c0f3ed9f61c864dbaa"
-build_time: [1527013452, 178562000]
+build_time: [1527135440, 227743000]
 inputs:
   "/Users/josephnechleba/Desktop/hack_anywhere/GhostControl/GhostControl/ViewController.swift": [9223372036, 854775807]
   "/Users/josephnechleba/Desktop/hack_anywhere/GhostControl/GhostControl/AppDelegate.swift": [9223372036, 854775807]

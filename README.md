@@ -1,2 +1,2 @@
 # hack_anywhere
-RIT Hackathon
+RIT Hackathon: GhostControl
